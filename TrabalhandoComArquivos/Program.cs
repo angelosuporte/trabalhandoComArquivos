@@ -7,23 +7,30 @@ namespace TrabalhandoComArquivos
     {
         static void Main(string[] args)
         {
-            string sourcePath = @"c:\teste\file1.txt";
-            string targetPath = @"c:\teste\file2.txt";
-
+            string path = @"c:\teste\file1.txt";
+            FileStream fs = null;
+            StreamReader sr = null;
+            
             try
             {
-                FileInfo fileInfo = new FileInfo(sourcePath);
-                fileInfo.CopyTo(targetPath);
-                string[] lines = File.ReadAllLines(sourcePath); //para ler o conteúdo do arquivo
-                foreach (string line in lines)
-                {
-                    Console.WriteLine(line);
-                }
+                fs = new FileStream(path, FileMode.Open);
+                sr = new StreamReader(fs);
+                string line = sr.ReadLine();
+                Console.WriteLine(line);
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
             }
             catch (IOException e)
             {
                 Console.WriteLine("An error occcorred");
                 Console.WriteLine(e.Message);
+            }
+
+            // Como o uso do FileStream e StreamReader está ligado a diálogo com o SO, vamos usar o bloco abaixo para fechamento manual
+            finally
+            {
+                if (sr != null) sr.Close();
+                if (fs != null) fs.Close();
             }
         }
     }
