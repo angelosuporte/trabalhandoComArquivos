@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace TrabalhandoComArquivos
 {
@@ -6,7 +7,24 @@ namespace TrabalhandoComArquivos
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string sourcePath = @"c:\teste\file1.txt";
+            string targetPath = @"c:\teste\file2.txt";
+
+            try
+            {
+                FileInfo fileInfo = new FileInfo(sourcePath);
+                fileInfo.CopyTo(targetPath);
+                string[] lines = File.ReadAllLines(sourcePath); //para ler o conteúdo do arquivo
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("An error occcorred");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
