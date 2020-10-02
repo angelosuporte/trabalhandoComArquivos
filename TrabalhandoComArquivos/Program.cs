@@ -13,8 +13,11 @@ namespace TrabalhandoComArquivos
             try
             {
                 sr = File.OpenText(path);
-                string line = sr.ReadLine();
-                Console.WriteLine(line);
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    Console.WriteLine(line);
+                }
                 Console.WriteLine("Press enter to continue");
                 Console.ReadLine();
             }
