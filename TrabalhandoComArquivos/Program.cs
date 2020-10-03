@@ -8,29 +8,28 @@ namespace TrabalhandoComArquivos
         static void Main(string[] args)
         {
             string path = @"c:\teste\file1.txt";
-            StreamReader sr = null;
-            
+
             try
             {
-                sr = File.OpenText(path);
-                while (!sr.EndOfStream)
+
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
-                    string line = sr.ReadLine();
-                    Console.WriteLine(line);
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            Console.WriteLine(line);
+
+                        }
+
+                    }
                 }
-                Console.WriteLine("Press enter to continue");
-                Console.ReadLine();
             }
             catch (IOException e)
             {
-                Console.WriteLine("An error occcorred");
+                Console.WriteLine("An error occurred");
                 Console.WriteLine(e.Message);
-            }
-
-            
-            finally
-            {
-                if (sr != null) sr.Close();
             }
         }
     }
