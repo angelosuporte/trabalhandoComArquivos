@@ -7,19 +7,21 @@ namespace TrabalhandoComArquivos
     {
         static void Main(string[] args)
         {
-            string path = @"c:\teste\file1.txt";
+            // Lógica para ler o primeiro arquivo e adicionar no segundo arquivo o texto com letras maiúsculas(método ToUpper)
+            string sourcePath = @"c:\teste\file1.txt";
+            string targetPath = @"c:\teste\file2.txt";
 
             try
             {
-                using (StreamReader sr = File.OpenText(path))
+                string[] lines = File.ReadAllLines(sourcePath);
+
+                using (StreamWriter sw = File.AppendText(targetPath))
                 {
-                    while (!sr.EndOfStream)
+                    foreach (string line in lines)
                     {
-                        string line = sr.ReadLine();
+                        sw.WriteLine(line.ToUpper());
                         Console.WriteLine(line);
-                        
                     }
-                    Console.ReadLine();
                 }
 
             }
